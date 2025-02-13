@@ -6,6 +6,8 @@ if [[ $(id -u) -ne 0 ]]; then
     exit 1
 fi
 
+# Unlock steamdeck filesystem
+steamos-readonly disable
 # Initialize pacman keyring
 pacman-key --init
 pacman-key --populate archlinux
@@ -17,8 +19,8 @@ if [[ -f "$fakeroot_conf" ]]; then
     echo "Removed $fakeroot_conf"
 fi
 
-# Install base-devel, linux-headers, linux-api-headers, and glibc packages
-pacman -Sy --noconfirm base-devel linux-headers linux-api-headers glibc npm
-
+pacman -Sy --noconfirm base-devel cmake glibc linux-headers linux-api-headers npm
+# pacman -Sy --noconfirm wireguard-tools
+# mkdir /etc/wireguard
+# cp wg0.conf /etc/wireguard/wg0.conf
 echo "Packages installed successfully."
-
